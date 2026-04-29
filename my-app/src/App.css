@@ -1,0 +1,320 @@
+/* ─── Layout ──────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #1a1a2e;
+  color: #e8e8f0;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem 1.2rem;
+  background: #16213e;
+  border-bottom: 1px solid #0f3460;
+  flex-shrink: 0;
+}
+
+.app-header__title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #e8e8f0;
+}
+
+.app-header__subtitle {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #8888aa;
+}
+
+.app-header__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.network-filter {
+  background: #0f3460;
+  color: #e8e8f0;
+  border: 1px solid #1a4a80;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  outline: none;
+}
+
+.network-filter:hover,
+.network-filter:focus {
+  border-color: #4a9eff;
+}
+
+/* ─── Main ───────────────────────────────────────────────── */
+
+.app-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ─── Map wrapper ────────────────────────────────────────── */
+
+.map-wrapper {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+.map-view {
+  width: 100%;
+  height: 100%;
+}
+
+/* MapView needs its own wrapper to hold overlays */
+.map-view-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Bbox drawing ───────────────────────────────────────── */
+
+/* Blue dashed rectangle drawn while shift-dragging */
+.bbox-drag-rect {
+  position: absolute;
+  pointer-events: none;
+  border: 2px dashed #4a9eff;
+  background: rgba(74, 158, 255, 0.12);
+  z-index: 20;
+}
+
+/* Hint text shown at bottom-centre when no bbox is active */
+.bbox-hint {
+  position: absolute;
+  bottom: 0.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 52, 96, 0.82);
+  color: #aaaacc;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.7rem;
+  border-radius: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 20;
+}
+
+/* "Clear area filter" button overlaid on the map */
+.bbox-clear-btn {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  z-index: 20;
+  background: #0f3460;
+  color: #e8e8f0;
+  border: 1px solid #4a9eff;
+  border-radius: 4px;
+  padding: 0.3rem 0.75rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.bbox-clear-btn:hover {
+  background: #1a5276;
+}
+
+/* Badge shown in the header when bbox is active */
+.bbox-badge {
+  font-size: 0.72rem;
+  color: #4a9eff;
+  background: rgba(74, 158, 255, 0.12);
+  border: 1px solid #4a9eff;
+  border-radius: 10px;
+  padding: 0.15rem 0.55rem;
+  white-space: nowrap;
+}
+
+/* ─── Legend ─────────────────────────────────────────────── */
+
+.legend {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 0.75rem;
+  background: rgba(22, 33, 62, 0.92);
+  border: 1px solid #0f3460;
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  min-width: 180px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+.legend__title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.4rem;
+  color: #aaaacc;
+}
+
+.legend__gradient {
+  height: 12px;
+  border-radius: 4px;
+  margin-bottom: 0.3rem;
+}
+
+.legend__labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: #ccccee;
+}
+
+/* ─── Time Slider ────────────────────────────────────────── */
+
+.time-slider {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 1rem 0.55rem;
+  background: #16213e;
+  border-top: 1px solid #0f3460;
+}
+
+.time-slider__display {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #e8e8f0;
+}
+
+.time-slider__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 640px;
+}
+
+.time-slider__btn {
+  background: #0f3460;
+  border: none;
+  color: #e8e8f0;
+  font-size: 1.3rem;
+  line-height: 1;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.time-slider__btn:hover:not(:disabled) {
+  background: #1a5276;
+}
+
+.time-slider__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.time-slider__btn--play.active {
+  background: #c0392b;
+}
+
+.time-slider__range {
+  flex: 1;
+  accent-color: #3498db;
+  cursor: pointer;
+  height: 4px;
+}
+
+.time-slider__info {
+  font-size: 0.72rem;
+  color: #8888aa;
+}
+
+/* ─── Sensor popup ───────────────────────────────────────── */
+
+.sensor-popup {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 0.82rem;
+  color: #1a1a2e;
+  min-width: 200px;
+}
+
+.sensor-popup__title {
+  font-weight: 700;
+  font-size: 0.92rem;
+  margin-bottom: 0.45rem;
+  color: #0f3460;
+  border-bottom: 1px solid #ccd;
+  padding-bottom: 0.3rem;
+}
+
+.sensor-popup__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+
+.sensor-popup__row span:first-child {
+  color: #666;
+}
+
+.sensor-popup__row.temp span:last-child {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* ─── Loading / Error states ─────────────────────────────── */
+
+.app-loading,
+.app-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 1rem;
+  background: #1a1a2e;
+  color: #e8e8f0;
+}
+
+.app-loading__spinner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 3px solid #0f3460;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.app-error {
+  color: #e74c3c;
+}
+
